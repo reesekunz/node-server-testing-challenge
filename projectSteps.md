@@ -186,5 +186,87 @@ return db("users")
 .first();
 }
 
-#25. Build out registerRouter.js
+#25. Build out and test registerRouter.js
+(remember to uncomment out route in server)
+
+Test POST to 5000/api/register:
+
+{
+"username": "Reese",
+"password": "password"
+}
+
+Should return:
+{
+"id": 1,
+"username": "Reese",
+"password": "$2a$14\$qtIrA0GebOTTJDMI/Cre/uFXzL7xrP6VqcIy.VR67OiPkuoEE8y2W"
+}
+
+#26. npm i jsonwebtoken
+
+#27. Create config folder
+inside config folder => secrets.js
+
+#28. Build out secrets.js
+
+- secrets will be imported into generateToken and restrictedMiddleware (creating in next steps)
+
+module.exports = {
+jwtSecret: process.env.JWT_SECRET || "keep it secret, keep it safe!"
+};
+
+#26. Add a middleware folder
+inside middleware folder => generateToken.js and restrictedMiddleware.js
+
+#27. Build out generateToken.js
+import generateToken into loginRouter
+
+#28. Build out restrictedMiddleware.js
+
+#29. Build out and test loginRouter.js
+(remember to uncomment out route in server)
+
+Test POST to 5000/api/login:
+
+{
+"username": "Reese",
+"password": "password"
+}
+
+Should return:
+{
+"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJuYW1lIjoiUmVlc2UiLCJpYXQiOjE1Njg5MjQ2NTQsImV4cCI6MTU2OTAxMTA1NH0.XSvSzS-n6oeNWLY3S6XEYA9wxe0Ps5dMWQLFtl_ky9g"
+}
+
+#30. Build out and test usersRouter.js
+(remember to uncomment out route in server)
+
+on Postman set the token you recieve (without the "") as the header for your GET request
+
+should look like:
+
+KEY VALUE
+
+---
+
+Content-Type application/json
+Authorization eyJh6ciO.... etc.
+
+Test GET to 5000/api/users:
+
+Should now return:
+
+{
+"users": [
+{
+"id": 1,
+"username": "Reese"
+}
+],
+"loggedInUser": "Reese"
+}
+
+(also if you dont set your headers, it should return "no credentials provided" so a non-logged in user can not view it)
+
 
