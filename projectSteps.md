@@ -270,3 +270,7 @@ Should now return:
 (also if you dont set your headers, it should return "no credentials provided" so a non-logged in user can not view it)
 
 
+<!-- PHASE 6 - TESTING -->
+
+#31. Added a remove helper to the userModel, and GET api/users/:id and DELETE api/users/:id functionality to usersRouter
+

@@ -13,4 +13,43 @@ router.get("/", restricted, (request, response) => {
     .catch(error => response.send(error));
 });
 
+// GET to 5000/api/users/2
+router.get("/:id", (request, response) => {
+  const { id } = request.params;
+
+  Users.findById(id)
+    .then(user => {
+      if (user) {
+        response.json(user);
+      } else {
+        response
+          .status(404)
+          .json({ message: "Could not find user with given id." });
+      }
+    })
+    .catch(error => {
+      response.status(500).json({ message: "Failed to get user" });
+    });
+});
+
+// DELETE to 5000/api/users
+
+router.delete("/:id", (request, response) => {
+  const { id } = request.params;
+
+  Users.remove(id)
+    .then(deletedUser => {
+      if (deletedUser) {
+        response.json({ removed: deletedUser });
+      } else {
+        response
+          .status(404)
+          .json({ message: "Could not find user with given id" });
+      }
+    })
+    .catch(error => {
+      response.status(500).json({ message: "Failed to delete user" });
+    });
+});
+
 module.exports = router;
