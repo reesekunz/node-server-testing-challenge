@@ -320,3 +320,16 @@ Creates a jest.config.js file and sets testEnvironment to be Node - can make sur
 (should now be running failing tests)
 
 #38. Build out server.spec.js tests
+
+#39. Update dbConfig to set environment to testing
+const knex = require("knex");
+const config = require("../knexfile.js");
+
+const environment = process.env.DB_ENV || "development";
+
+module.exports = knex(config[environment]);
+// module.exports = knex(config.development);
+
+#40. knex migrate:latest --env=testing
+
+#41. build out userModel.spec.js
