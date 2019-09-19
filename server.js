@@ -13,7 +13,7 @@ server.use("/api/register", registerRouter);
 server.use("/api/login", loginRouter);
 
 server.get("/", (request, response) => {
-  response.send("It's alive!");
+  response.status(200).json({ api: "it is alive!" });
 });
 
 module.exports = server;

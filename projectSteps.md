@@ -269,8 +269,54 @@ Should now return:
 
 (also if you dont set your headers, it should return "no credentials provided" so a non-logged in user can not view it)
 
-
 <!-- PHASE 6 - TESTING -->
 
 #31. Added a remove helper to the userModel, and GET api/users/:id and DELETE api/users/:id functionality to usersRouter
 
+#32. npm i -D supertest jest
+
+#33. make sure package.json looks like this:
+"scripts": {
+"server": "nodemon index.js",
+"test": "cross-env DB_ENV=testing jest --watch"
+"start": "node index.js"
+},
+
+Example from training kit:
+
+<!-- "test": "jest --watch --verbose"  -->
+<!-- And also make sure it contains this:
+
+"jest": {
+"testEnvirnoment": "node"
+} -->
+
+#34. add testing files
+usersModel.spec.js
+loginRouter.spec.js
+usersRouter.spec.js
+registerRouter.spec.js
+server.spec.js
+
+#35. update knexfile.js to include testing
+testing: {
+client: "sqlite3",
+connection: {
+filename: "./data/test.db3"
+},
+useNullAsDefault: true,
+migrations: {
+directory: "./data/migrations"
+},
+seeds: {
+directory: "./data/seeds"
+}
+}
+
+#36. npx jest -- init
+Creates a jest.config.js file and sets testEnvironment to be Node - can make sure this is uncommented in jestconfig
+
+#37. npm test
+(should now be running failing tests)
+
+#38. Build out server.spec.js tests
