@@ -132,3 +132,59 @@ npx knex seed:make 04-recipe_steps
 
 #knex seed:run
 (may need to knex migrate:rollback and knex migrate:latest again for migrations if made any changes)
+
+<!-- PHASE 5 - CREATING HELPERS AND ROUTERS -->
+
+#21. Create a register folder
+inside register folder => registerRouter.js
+
+#22. Create a login folder
+inside login folder => loginRouter.js
+
+#23. Create a users folder
+inside users folder => usersRouter.js
+
+(Note that since theres only one database migration ("users") that we will be referencing for each router, the helpers will go in one individual file. If (for example) referencing separate "register", "login", and "users" tables instead, would add to each respective folder (registerHelpers.js, loginHelpers.js, usersHelpers.js etc.)
+
+#24. Create a build out a usersModel inside of a helpers folder
+(import this into each router)
+
+const db = require("../data/dbConfig");
+
+module.exports = {
+add,
+find,
+findBy,
+findById
+};
+
+function find() {
+return db("users").select(
+"id",
+"username"
+// "password" - dont want to select password since dont want to display a users password
+// "department" - not using deparment for migrations in this project
+);
+}
+
+function findBy(filter) {
+return db("users").where(filter);
+}
+
+function add(user) {
+return db("users")
+.insert(user, "id")
+.then(ids => {
+const [id] = ids;
+return findById(id);
+});
+}
+
+function findById(id) {
+return db("users")
+.where({ id })
+.first();
+}
+
+#25. Build out registerRouter.js
+
